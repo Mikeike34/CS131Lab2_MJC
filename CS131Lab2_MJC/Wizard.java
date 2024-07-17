@@ -12,7 +12,7 @@ public class Wizard implements Lockable{
 	private String name;
 	private int health;
 	private int key;
-	boolean locked;
+	private boolean locked;
 	
 	/**
 	 * End constructor to put object into consistent state
@@ -47,12 +47,13 @@ public class Wizard implements Lockable{
 	 * @param power
 	 */
 	public void takeDamage(int power) {
-		if(isLocked() == false)
-			int newHealth = health - power;
-			setHealth(newHealth);
-			System.out.println("You took " +power+ " damage. Your health is now "+ health);
-		else
-			System.out.println("Character is locked. No damage was taken.");
+		if(!isLocked()) {
+			health -= power;
+			System.out.println("You took "+power+" damage. Your health is now "+health);
+			}//end if
+			else {
+				System.out.println("Character is locked.No damage was taken.");
+			}//end else
 			
 		
 	}//end takeDamage
@@ -112,29 +113,32 @@ public class Wizard implements Lockable{
 
 	@Override
 	public void setKey(int key) {
-		
+		this.key = key;
 	}
 
 	@Override
 	public void lock(int key) {
-		if(this.key == key)
+		if(this.key == key) {
 			locked = true;
-		else
+		}//end if
+		else {
 			locked = false;
+		}//end else
 		
-	}
+	}//end lock
 
 	@Override
 	public void unlock(int key) {
-		if(this.key == key)
+		if(this.key == key) {
 			locked = false;
-		else
+		}//end if
+		else {
 			locked = true;
-	}
+		}//end else
+	}//end unlock
 
 	@Override
 	public boolean isLocked() {
-		
 		return locked;
 	}
 
